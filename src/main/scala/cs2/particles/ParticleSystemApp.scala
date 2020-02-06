@@ -7,6 +7,9 @@ import scalafx.scene.canvas.Canvas
 import scalafx.animation.AnimationTimer
 import cs2.util.Vec2
 import scalafx.scene.paint.Color
+import scalafx.scene.input.MouseEvent
+import scalafx.scene.input.KeyEvent
+import scalafx.scene.input.KeyCode
 
 object ParticleSystemApp extends JFXApp {
     stage = new JFXApp.PrimaryStage {
@@ -16,14 +19,28 @@ object ParticleSystemApp extends JFXApp {
             content = canvas
             val g = canvas.graphicsContext2D
 
-            val p = new ParticleSystem(new Vec2(200,200))
+            var ps:List[ParticleSystem] = Nil
+
+            canvas.onMouseClicked = (e:MouseEvent) => {
+                ps ::= new ImageParticleSystem(new Vec2(e.x, e.y))
+            }
+            canvas.onKeyPressed = (e:KeyEvent) => {
+                if(e.code == KeyCode.Space) {
+                    ps = Nil
+                }
+            }
+            canvas.requestFocus
+
+            val bg = new RainbowBackground(width.value,height.value)
+
             val timer = AnimationTimer(t => {
-                g.setFill(Color.White)
-                g.fillRect(0,0, 600,600)
-                p.display(g)
-                p.timeStep
-                p.addParticle
-                p.applyForce(new Vec2(0,0.5))
+                bg.display(g)
+                for(p <- ps) {
+                    p.display(g)
+                    p.timeStep
+                    p.addParticle
+                    p.applyForce(new Vec2(0,-0.5))
+                }
             })
             timer.start
 
