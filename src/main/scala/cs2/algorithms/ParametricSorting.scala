@@ -26,9 +26,24 @@ object ParametricSorting {
         }
     }
 
+    class Student(var first:String, var id:Int, var gpa:Double) extends Ordered[Student] {
+        def compare(other:Student):Int = {
+            first.compare(other.first)
+        }
+        override def toString():String = first
+    }
+
+
     def main(args:Array[String]):Unit = {
         val a:Array[Double] = Array.fill(10)(math.random)
         val b:Array[Char] = Array.fill(30)(scala.util.Random.nextPrintableChar)
+
+        val c:Array[Student] = Array(new Student("Sally", 1234, 4.0),
+            new Student("Bob", 432, 3.5), new Student("Cindy", 1222, 2.5))
+        
+        println(c.mkString(", "))
+        bubbleSort(c, (x:Student,y:Student) => x.gpa > y.gpa)
+        println(c.mkString(", "))
 
         println(a.mkString(", "))
         bubbleSort(a, (x:Double,y:Double) => x > y)
