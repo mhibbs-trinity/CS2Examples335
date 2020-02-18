@@ -10,6 +10,13 @@ abstract class Particle(protected var pos:Vec2, private var vel:Vec2) {
 
     def display(g:GraphicsContext):Unit
 
+    def position():Vec2 = pos.clone
+    def radius():Double = r
+
+    def isOffScreen():Boolean = {
+        pos.x < 0 || pos.x > 600 || pos.y < 0 || pos.y > 600
+    }
+
     def timeStep():Unit = {
         pos += vel
     }
