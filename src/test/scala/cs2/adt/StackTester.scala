@@ -7,7 +7,7 @@ class StackTester {
     var s:Stack[Int] = null
 
     @Before def initializeStack() {
-        s = new ArrayStack[Int] ()
+        s = Stack[Int]()
     }
 
     @Test def checkIsEmptyWithEmpty() {

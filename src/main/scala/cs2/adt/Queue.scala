@@ -6,3 +6,7 @@ abstract class Queue[A] {
     def peek():A
     def isEmpty():Boolean
 }
+
+object Queue {
+    def apply[A:Manifest]() = new ArrayQueue[A]()
+}
