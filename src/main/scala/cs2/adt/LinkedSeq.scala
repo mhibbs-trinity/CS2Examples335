@@ -7,9 +7,17 @@ class LinkedSeq[A] extends Seq[A] with Iterable[A] {
             for(i <- 1 to idx) rover = rover.next
             rover
         }
+        override def toString():String = {
+            if(next != null) data.toString + "," + next.toString
+            else data.toString
+        }
     }
     private var hed:Node = null
     private var len:Int = 0
+
+    override def toString():String = {
+        "(" + hed.toString + ")"
+    }
 
     def iterator():scala.collection.Iterator[A] = {
         new scala.collection.Iterator[A] {
@@ -77,7 +85,8 @@ object SeqStuff {
         it.foreach(print)
 
         seq.foreach(print)
-
+        println
+        println(seq)
     }
 }
 
