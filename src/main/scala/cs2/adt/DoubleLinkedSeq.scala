@@ -1,7 +1,7 @@
 package cs2.adt
 
 class DoubleLinkedSeq[A:Manifest] extends Seq[A] with Iterable[A] {
-    private class Node(var data:A, var prev:Node, var next:Node) {
+     class Node(var data:A, var prev:Node, var next:Node) {
         def getNode(idx:Int):Node = {
             if(idx >= 0 && idx < len) {
                 var rover = this
@@ -28,7 +28,9 @@ class DoubleLinkedSeq[A:Manifest] extends Seq[A] with Iterable[A] {
 
     def iterator():BidirectionalIterator = new BidirectionalIterator()
 
-    private var end:Node = new Node(new Array[A](1)(0),end,end)
+     var end:Node = new Node(new Array[A](1)(0),end,end)
+    end.next = end
+    end.prev = end
     private var len:Int = 0
 
     def get(idx:Int):A = end.next.getNode(idx).data
@@ -39,10 +41,17 @@ class DoubleLinkedSeq[A:Manifest] extends Seq[A] with Iterable[A] {
         rover.next.next.prev = rover.next
         len += 1
     }
+    override def append(elem:A):Unit = {
+        var rover = end.prev
+        rover.next = new Node(elem, rover, rover.next)
+        rover.next.next.prev = rover.next
+        len += 1
+    }
     def remove(idx:Int):A = {
         var rover = end.next.getNode(idx)
         rover.prev.next = rover.next
         rover.next.prev = rover.prev
+        len -= 1
         rover.data
     }
 
