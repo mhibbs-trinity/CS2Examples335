@@ -87,5 +87,69 @@ class BinarySearchTree[A <% Ordered[A]] {
 
     def isEmpty():Boolean = root == null
 
+    def printPreOrder():Unit = {
+        def processNode(curr:Node):Unit = {
+            if(curr != null) {
+                print(curr.data + ", ")
+                processNode(curr.left)
+                processNode(curr.right)
+            }
+        }
+        processNode(root)
+    }
+    def printInOrder():Unit = {
+        def processNode(curr:Node):Unit = {
+            if(curr != null) {
+                processNode(curr.left)
+                print(curr.data + ", ")
+                processNode(curr.right)
+            }
+        }
+        processNode(root)
+    }
+    def printPostOrder():Unit = {
+        def processNode(curr:Node):Unit = {
+            if(curr != null) {
+                processNode(curr.left)
+                processNode(curr.right)
+                print(curr.data + ", ")
+            }
+        }
+        processNode(root)
+    }
 
+    def printPreOrderStack():Unit = {
+        val stk = new LinkedStack[Node]()
+        stk.push(root)
+        while(!stk.isEmpty) {
+            val curr = stk.pop
+            if(curr != null) {
+                print(curr.data + ", ")
+                stk.push(curr.right)
+                stk.push(curr.left)
+            }
+        }
+        println
+    }
+}
+
+object BinarySearchTree {
+    def main(args:Array[String]):Unit = {
+        var bst = new BinarySearchTree[Int]()
+        bst.insert(40)
+        bst.insert(20)
+        bst.insert(60)
+        bst.insert(15)
+        bst.insert(30)
+        bst.insert(4)
+        bst.insert(55)
+
+        bst.printPreOrder
+        println
+        bst.printInOrder
+        println
+        bst.printPostOrder
+        println
+        bst.printPreOrderStack
+    }
 }
