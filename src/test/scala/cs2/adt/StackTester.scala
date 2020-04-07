@@ -29,4 +29,14 @@ class StackTester {
         }
         assertTrue(s.isEmpty)
     }
+
+    @Test def checkEmptyException() {
+        try {
+            s.pop
+            assertTrue(false)
+        } catch {
+            case e:java.util.EmptyStackException => //expected
+        }
+    }
+
 }
