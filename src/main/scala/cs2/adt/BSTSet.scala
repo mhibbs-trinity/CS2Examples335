@@ -21,20 +21,20 @@ class BSTSet[A <% Ordered[A]] extends Set[A] {
     def contains(elem:A):Boolean = bst.contains(elem)
     override def size():Int = len
 
-    def intersect(other:Set[A]):Set[A] = {
+    override def intersect(other:Set[A]):Set[A] = {
         val res = new BSTSet[A]()
         for(x <- bst) {
             if(other.contains(x)) res.add(x)
         }
         res
     }
-    def union(other:Set[A]):Set[A] = {
+    override def union(other:Set[A]):Set[A] = {
         val res = new BSTSet[A]()
         for(x <- bst) res.add(x)
         for(x <- other) res.add(x)
         res
     }
-    def difference(other:Set[A]):Set[A] = {
+    override def difference(other:Set[A]):Set[A] = {
         val res = new BSTSet[A]()
         for(x <- bst) {
             if(!other.contains(x)) res.add(x)
