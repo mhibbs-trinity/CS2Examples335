@@ -10,3 +10,5 @@ libraryDependencies ++= Seq(
 	"org.scalactic" %% "scalactic" % "3.0.5",
 	"org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
+
+mainClass in (Compile, packageBin) := Some("cs2.net.ChatProgram")
